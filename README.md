@@ -26,10 +26,18 @@ Open **http://localhost:5173** in your browser.
 
 ### Try it — seeded credentials
 
-| Role      | Email               | Password    |
-|-----------|---------------------|-------------|
-| Requester | alice@example.com   | password123 |
-| Validator | bob@example.com     | password123 |
+All passwords are `password123`.
+
+| Role      | Name            | Email               |
+|-----------|-----------------|---------------------|
+| Validator | Bob Validator   | bob@example.com     |
+| Validator | Carol Validator | carol@example.com   |
+| Requester | Alice Requester | alice@example.com   |
+| Requester | David Requester | david@example.com   |
+| Requester | Eve Requester   | eve@example.com     |
+| Requester | Frank Requester | frank@example.com   |
+| Requester | Grace Requester | grace@example.com   |
+| Requester | Henry Requester | henry@example.com   |
 
 ## API Docs
 
