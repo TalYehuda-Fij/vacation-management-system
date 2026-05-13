@@ -8,7 +8,7 @@
     "start": "node dist/server.js",
     "migration:run": "tsx src/migrate.ts",
     "seed": "tsx src/seed.ts",
-    "test": "vitest run --reporter=verbose --forceExit"
+    "test": "vitest run --reporter=verbose"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
