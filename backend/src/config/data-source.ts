@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { User } from '../entities/User.js';
 import { VacationRequest } from '../entities/VacationRequest.js';
+import { InitSchema1715000000000 } from '../migrations/1715000000000-InitSchema.js';
 
 const isTest = process.env.NODE_ENV === 'test';
 
@@ -15,7 +16,7 @@ export const AppDataSource = new DataSource({
     ? (process.env.POSTGRES_TEST_DB ?? 'vacation_test')
     : (process.env.POSTGRES_DB ?? 'vacation'),
   entities: [User, VacationRequest],
-  migrations: ['src/migrations/*.ts'],
+  migrations: [InitSchema1715000000000],
   synchronize: false,
   logging: false,
 });
