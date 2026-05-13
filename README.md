@@ -62,8 +62,9 @@ Swagger UI is available at **http://localhost:3000/api/docs** once the backend i
 │       └── seed.ts
 └── frontend/
     └── src/
-        ├── views/          # LoginView, RequesterView, ValidatorView
-        ├── components/     # RequestForm, RequestList, StatusBadge, RejectDialog
+        ├── views/          # LoginView, RequesterView, ValidatorView, MetricsView
+        ├── components/     # RequestForm, RequestList, StatusBadge, RejectDialog,
+        │                   # AppSidebar, StatCard, ActivityFeed
         ├── stores/         # auth, requests (Pinia)
         ├── api/            # Axios instance + typed endpoints
         └── router/
@@ -73,7 +74,7 @@ Swagger UI is available at **http://localhost:3000/api/docs** once the backend i
 
 - **JWT over sessions:** stateless auth scales horizontally without shared session storage; the 8-hour expiry fits a working-day use case.
 - **TypeORM over Prisma:** matches the assignment's explicit requirement and gives fine-grained migration control via raw SQL in migration files.
-- **Schema additions:** `reviewed_by` and `reviewed_at` on `vacation_requests` are required to display audit info in the validator view; `password_hash` on `users` is required for JWT auth. Both are noted here as deviations from the minimal spec.
+- **Schema additions:** beyond the minimal spec, `email` and `password_hash` on `users` are required to support email/password login under JWT; `reviewed_by` and `reviewed_at` on `vacation_requests` are required to display audit info in the validator view and activity feed.
 - **Date-overlap returns 409 (Conflict):** a new request conflicts with an existing resource (a pending/approved booking), making 409 more semantically accurate than 422.
 - **Plain CSS only:** no UI framework or utility library — scoped `<style>` blocks per component with CSS custom properties for design tokens.
 
@@ -118,6 +119,10 @@ npm test
 - Swagger / OpenAPI documentation
 - Pagination and sorting on the validator list endpoint
 - Responsive UI (collapses to card layout at 375 px)
-- Docker Compose (single `docker compose up --build` starts everything)
-- Backend integration tests covering all key routes
+- Docker Compose (single `docker compose up --build` starts everything) with a separate `test` profile for the isolated `vacation_test` database
+- Backend integration tests covering all key routes plus metrics endpoints
 - Frontend unit tests for form validation and component behaviour
+- **Dashboard widgets:** stat cards (Total / Pending / Approved / Rejected) with progress bars and an Activity Feed on the validator view
+- **Sidebar navigation** (collapsible) shared across both roles, replacing the top bar
+- **Status tabs** on the requester view to filter own requests
+- **Metrics dashboard** (`/metrics`): SVG donut chart for requesters showing personal day usage, horizontal bar chart for validators showing every employee's days taken against a 20-day quota with overdraft tracking
