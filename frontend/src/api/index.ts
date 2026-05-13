@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { User, VacationRequest, PaginatedResponse, RequestStatus } from '../types/index.js';
+import type { User, VacationRequest, PaginatedResponse, RequestStatus, RequestStats } from '../types/index.js';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:3000',
@@ -42,4 +42,8 @@ export const requestsApi = {
 
   reject: (id: string, comments: string) =>
     api.patch<VacationRequest>(`/api/vacation-requests/${id}/reject`, { comments }),
+
+  getStats: () => api.get<RequestStats>('/api/vacation-requests/stats'),
+
+  getActivity: () => api.get<VacationRequest[]>('/api/vacation-requests/activity'),
 };

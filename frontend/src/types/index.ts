@@ -29,3 +29,10 @@ export interface PaginatedResponse<T> {
   pageSize: number;
   totalPages: number;
 }
+
+export interface RequestStats {
+  total: number;
+  pending: number;
+  approved: number;
+  rejected: number;
+}
