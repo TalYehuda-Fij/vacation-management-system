@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { User, VacationRequest, PaginatedResponse, RequestStatus, RequestStats } from '../types/index.js';
+import type { User, VacationRequest, PaginatedResponse, RequestStatus, RequestStats, EmployeeMetric, MyMetric } from '../types/index.js';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:3000',
@@ -46,4 +46,9 @@ export const requestsApi = {
   getStats: () => api.get<RequestStats>('/api/vacation-requests/stats'),
 
   getActivity: () => api.get<VacationRequest[]>('/api/vacation-requests/activity'),
+};
+
+export const metricsApi = {
+  getAll: () => api.get<EmployeeMetric[]>('/api/metrics'),
+  getMine: () => api.get<MyMetric>('/api/metrics/me'),
 };

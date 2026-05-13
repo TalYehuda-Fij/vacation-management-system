@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import('../views/ValidatorView.vue'),
       meta: { requiresAuth: true, role: 'validator' },
     },
+    {
+      path: '/metrics',
+      component: () => import('../views/MetricsView.vue'),
+      meta: { requiresAuth: true },
+    },
   ],
 });
 

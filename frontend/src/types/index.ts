@@ -36,3 +36,22 @@ export interface RequestStats {
   approved: number;
   rejected: number;
 }
+
+export interface EmployeeMetric {
+  id: string;
+  name: string;
+  email: string;
+  daysTaken: number;
+  daysRemaining: number;
+  quota: number;
+  maxAllowed: number;
+  year: number;
+}
+
+export interface MyMetric {
+  daysTaken: number;
+  daysRemaining: number;
+  quota: number;
+  maxAllowed: number;
+  year: number;
+}
