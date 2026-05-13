@@ -61,10 +61,16 @@ docker compose down -v       # stop containers and wipe the database volume
 
 All passwords are `password123`.
 
-| Role      | Email               |
-|-----------|---------------------|
-| Validator | bob@example.com     |
-| Requester | alice@example.com   |
+| Role      | Name            | Email               |
+|-----------|-----------------|---------------------|
+| Validator | Bob Validator   | bob@example.com     |
+| Validator | Carol Validator | carol@example.com   |
+| Requester | Alice Requester | alice@example.com   |
+| Requester | David Requester | david@example.com   |
+| Requester | Eve Requester   | eve@example.com     |
+| Requester | Frank Requester | frank@example.com   |
+| Requester | Grace Requester | grace@example.com   |
+| Requester | Henry Requester | henry@example.com   |
 
 ## API Docs
 
