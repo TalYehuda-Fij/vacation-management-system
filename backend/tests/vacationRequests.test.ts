@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import request from 'supertest';
 import 'reflect-metadata';
 import { AppDataSource } from '../src/config/data-source.js';
-import { app } from '../src/server.js';
+import { app } from '../src/app.js';
 import { User, UserRole } from '../src/entities/User.js';
 import { VacationRequest, RequestStatus } from '../src/entities/VacationRequest.js';
 import bcrypt from 'bcrypt';
@@ -19,8 +19,10 @@ async function loginAs(email: string, password: string): Promise<string> {
 
 beforeAll(async () => {
   process.env.NODE_ENV = 'test';
-  if (!AppDataSource.isInitialized) await AppDataSource.initialize();
-  await AppDataSource.runMigrations();
+  if (!AppDataSource.isInitialized) {
+    await AppDataSource.initialize();
+    await AppDataSource.runMigrations();
+  }
 });
 
 afterAll(async () => {
