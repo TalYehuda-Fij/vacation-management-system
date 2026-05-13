@@ -81,6 +81,33 @@ export async function approveRequest(id: string, reviewerId: string, comments?: 
   return repo.save(request);
 }
 
+export async function getStats() {
+  const repo = AppDataSource.getRepository(VacationRequest);
+  const rows = await repo
+    .createQueryBuilder('vr')
+    .select('vr.status', 'status')
+    .addSelect('COUNT(*)', 'count')
+    .groupBy('vr.status')
+    .getRawMany<{ status: string; count: string }>();
+
+  const map: Record<string, number> = { pending: 0, approved: 0, rejected: 0 };
+  for (const row of rows) map[row.status] = Number(row.count);
+  const total = map.pending + map.approved + map.rejected;
+  return { total, ...map };
+}
+
+export async function getActivity(limit = 10) {
+  const repo = AppDataSource.getRepository(VacationRequest);
+  return repo
+    .createQueryBuilder('vr')
+    .leftJoinAndSelect('vr.user', 'u')
+    .leftJoinAndSelect('vr.reviewer', 'r')
+    .where('vr.status IN (:...statuses)', { statuses: [RequestStatus.APPROVED, RequestStatus.REJECTED] })
+    .orderBy('vr.reviewedAt', 'DESC')
+    .take(limit)
+    .getMany();
+}
+
 export async function rejectRequest(id: string, reviewerId: string, comments: string) {
   const repo = AppDataSource.getRepository(VacationRequest);
   const request = await repo.findOneBy({ id });

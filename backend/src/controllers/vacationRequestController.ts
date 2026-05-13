@@ -9,6 +9,8 @@ import {
   createRequest,
   getMyRequests,
   getAllRequests,
+  getStats,
+  getActivity,
   approveRequest,
   rejectRequest,
 } from '../services/vacationRequestService.js';
@@ -44,6 +46,22 @@ export async function getAllRequestsHandler(req: Request, res: Response, next: N
     }
     const data = await getAllRequests(result.data);
     res.json(data);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getStatsHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.json(await getStats());
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getActivityHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.json(await getActivity());
   } catch (err) {
     next(err);
   }

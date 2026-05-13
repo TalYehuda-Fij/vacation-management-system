@@ -5,6 +5,8 @@ import {
   createRequestHandler,
   getMyRequestsHandler,
   getAllRequestsHandler,
+  getStatsHandler,
+  getActivityHandler,
   approveRequestHandler,
   rejectRequestHandler,
 } from '../controllers/vacationRequestController.js';
@@ -73,6 +75,30 @@ router.get('/mine', authenticate, requireRole(UserRole.REQUESTER), getMyRequests
  *       403: { description: Forbidden }
  */
 router.get('/', authenticate, requireRole(UserRole.VALIDATOR), getAllRequestsHandler);
+
+/**
+ * @openapi
+ * /api/vacation-requests/stats:
+ *   get:
+ *     summary: Get request counts by status
+ *     tags: [VacationRequests]
+ *     security: [{ bearerAuth: [] }]
+ *     responses:
+ *       200: { description: Stats object }
+ */
+router.get('/stats', authenticate, requireRole(UserRole.VALIDATOR), getStatsHandler);
+
+/**
+ * @openapi
+ * /api/vacation-requests/activity:
+ *   get:
+ *     summary: Get recent approve/reject activity
+ *     tags: [VacationRequests]
+ *     security: [{ bearerAuth: [] }]
+ *     responses:
+ *       200: { description: Recent activity list }
+ */
+router.get('/activity', authenticate, requireRole(UserRole.VALIDATOR), getActivityHandler);
 
 /**
  * @openapi
