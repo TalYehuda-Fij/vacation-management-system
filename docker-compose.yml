@@ -1,6 +1,12 @@
+networks:
+  app-net:
+    driver: bridge
+
 services:
   db:
     image: postgres:16-alpine
+    networks:
+      - app-net
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -17,6 +23,8 @@ services:
 
   backend:
     build: ./backend
+    networks:
+      - app-net
     depends_on:
       db:
         condition: service_healthy
@@ -32,6 +40,8 @@ services:
 
   frontend:
     build: ./frontend
+    networks:
+      - app-net
     depends_on:
       - backend
     environment:
