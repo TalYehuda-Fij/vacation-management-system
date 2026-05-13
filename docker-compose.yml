@@ -13,6 +13,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-vacation}
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
       interval: 5s
@@ -48,6 +49,25 @@ services:
       VITE_API_URL: ${VITE_API_URL:-http://localhost:3000}
     ports:
       - "5173:5173"
+
+  backend-test:
+    build: ./backend
+    networks:
+      - app-net
+    profiles:
+      - test
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: test
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_TEST_DB: ${POSTGRES_TEST_DB:-vacation_test}
+      JWT_SECRET: ${JWT_SECRET:-change_me_in_production}
+    command: ["sh", "-c", "npx tsx src/migrate.ts && npm test"]
 
 volumes:
   pgdata:

@@ -86,13 +86,23 @@ Swagger UI is available at **http://localhost:3000/api/docs** once the backend i
 
 ## Running Tests
 
-**Backend integration tests** (requires a running PostgreSQL instance at `vacation_test`):
+**Via Docker (recommended)** — uses the `test` profile which spins up the `vacation_test` database automatically:
+
+```bash
+docker compose up db --wait          # ensure db is healthy
+docker compose --profile test run --rm backend-test
+```
+
+**Backend integration tests (local):**
 
 ```bash
 cd backend
 npm install
 NODE_ENV=test npm test
 ```
+
+> Requires a local PostgreSQL instance with both `vacation` and `vacation_test` databases.  
+> The `vacation_test` database is created automatically when the Docker db service first starts.
 
 **Frontend unit tests:**
 
