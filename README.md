@@ -13,16 +13,49 @@ A full-stack web application for managing employee vacation requests. Employees 
 - **Tests:** Vitest, Supertest, Vue Test Utils
 - **Dev environment:** Docker Compose
 
+## Prerequisites
+
+- **Docker Desktop** 4.0+ (or Docker Engine 20.10+ with Docker Compose v2)
+- **Git**
+- Free local ports: **5173** (frontend), **3000** (backend), **5432** (PostgreSQL)
+
+Verify your setup:
+
+```bash
+docker --version          # Docker version 20.10 or newer
+docker compose version    # Docker Compose version v2.x
+```
+
 ## Quick Start
 
 ```bash
+# 1. Clone the repo
 git clone <repo-url>
 cd vacation-management-system
+
+# 2. Copy the environment template (defaults work out of the box)
 cp .env.example .env
+
+# 3. Build and start everything (db, backend, frontend)
 docker compose up --build
 ```
 
-Open `http://localhost:5173`.
+Wait until you see logs from all three containers:
+
+```
+db-1       | database system is ready to accept connections
+backend-1  | Backend listening on :3000
+frontend-1 |   ➜  Local:   http://localhost:5173/
+```
+
+Open **http://localhost:5173** in your browser and sign in with the seeded credentials below.
+
+### Stopping the app
+
+```bash
+docker compose down          # stop containers, keep data
+docker compose down -v       # stop containers and wipe the database volume
+```
 
 ### Seeded credentials
 
