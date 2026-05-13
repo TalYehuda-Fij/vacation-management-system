@@ -5,6 +5,7 @@ import type { RequestStatus } from '../types/index.js';
 import AppSidebar from '../components/AppSidebar.vue';
 import RequestForm from '../components/RequestForm.vue';
 import RequestList from '../components/RequestList.vue';
+import RequestRow from '../components/RequestRow.vue';
 
 const store = useRequestsStore();
 
@@ -79,11 +80,6 @@ onMounted(() => store.fetchMine());
     </main>
   </div>
 </template>
-
-<script lang="ts">
-import RequestRow from '../components/RequestRow.vue';
-export default { components: { RequestRow } };
-</script>
 
 <style scoped>
 .layout {
