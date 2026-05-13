@@ -120,13 +120,13 @@ Swagger UI: `http://localhost:3000/api/docs`
 
 ## Running Tests
 
-Backend integration tests (via Docker, with isolated `vacation_test` database):
+Backend tests — **integration** tests (Supertest hits real Express routes against an isolated `vacation_test` database) plus **unit** tests (zod DTO validation, error handler) — both run together via the Docker test profile:
 
 ```bash
 docker compose --profile test run --rm --build backend-test
 ```
 
-Frontend unit tests:
+Frontend unit tests (Vue components with Vue Test Utils + happy-dom):
 
 ```bash
 cd frontend
@@ -140,4 +140,4 @@ npm test
 - Swagger / OpenAPI documentation
 - Responsive UI (mobile breakpoint at 640px)
 - Single-command Docker Compose setup with a dedicated test profile
-- Backend integration tests and frontend unit tests
+- Backend integration tests, backend unit tests, and frontend unit tests
