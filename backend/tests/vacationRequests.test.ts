@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import request from 'supertest';
-import 'reflect-metadata';
 import { AppDataSource } from '../src/config/data-source.js';
 import { app } from '../src/app.js';
 import { User, UserRole } from '../src/entities/User.js';
@@ -16,18 +15,6 @@ async function loginAs(email: string, password: string): Promise<string> {
   const res = await request(app).post('/api/auth/login').send({ email, password });
   return res.body.token;
 }
-
-beforeAll(async () => {
-  process.env.NODE_ENV = 'test';
-  if (!AppDataSource.isInitialized) {
-    await AppDataSource.initialize();
-    await AppDataSource.runMigrations();
-  }
-});
-
-afterAll(async () => {
-  if (AppDataSource.isInitialized) await AppDataSource.destroy();
-});
 
 beforeEach(async () => {
   await AppDataSource.query(`TRUNCATE vacation_requests, users CASCADE`);
