@@ -105,7 +105,7 @@ Swagger UI: `http://localhost:3000/api/docs`
 ## Technical Decisions
 
 - **JWT over sessions:** stateless auth, no shared session storage.
-- **TypeORM over Prisma:** matches the assignment requirement; explicit migrations.
+- **TypeORM:** matches the assignment requirement; explicit migrations.
 - **Schema additions:** `email` and `password_hash` on `users` support login under JWT; `reviewed_by` and `reviewed_at` on `vacation_requests` track approval audit info.
 - **Date-overlap returns 409:** a new request conflicts with an existing pending/approved booking, making Conflict more accurate than Unprocessable Entity.
 - **Plain CSS:** scoped `<style>` blocks per component with CSS custom properties for design tokens.
@@ -138,7 +138,6 @@ npm test
 
 - Date-overlap detection
 - Swagger / OpenAPI documentation
-- Pagination and sorting on the validator list endpoint
 - Responsive UI (mobile breakpoint at 640px)
 - Single-command Docker Compose setup with a dedicated test profile
 - Backend integration tests and frontend unit tests
