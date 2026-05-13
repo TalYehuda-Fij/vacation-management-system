@@ -106,6 +106,7 @@ Swagger UI: `http://localhost:3000/api/docs`
 
 ## Known Limitations
 
+- No sign-up flow — users must be added via the seed or directly in the database.
 - No email notifications on status changes.
 - No multi-tenant org support.
 - No audit log beyond `reviewed_by` and `reviewed_at`.
