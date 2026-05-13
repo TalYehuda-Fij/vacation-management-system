@@ -45,7 +45,7 @@ export async function getAllRequests(dto: ListQueryDto) {
   const qb = repo
     .createQueryBuilder('vr')
     .leftJoinAndSelect('vr.user', 'u')
-    .orderBy('vr.created_at', dto.sort === 'asc' ? 'ASC' : 'DESC')
+    .orderBy('vr.createdAt', dto.sort === 'asc' ? 'ASC' : 'DESC')
     .skip((dto.page - 1) * dto.pageSize)
     .take(dto.pageSize);
 

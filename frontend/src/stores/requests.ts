@@ -51,6 +51,8 @@ export const useRequestsStore = defineStore('requests', () => {
         pageSize: res.data.pageSize,
         totalPages: res.data.totalPages,
       };
+    } catch {
+      showToast('Failed to load requests', 'error');
     } finally {
       loading.value = false;
     }
